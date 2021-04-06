@@ -62,27 +62,7 @@ export default function SelectLocation() {
       options={options}
       loading={loading}
       onChange={(e, selected) => {
-        // selected?.Key && dispatch(selectItemTest(selected));
-        selected?.Key &&
-          dispatch(
-            selectItem({
-              Key: selected.Key,
-              LocalizedName: selected.LocalizedName,
-            })
-          );
-        // dispatch(
-        //   selectItem({
-        //     Key: selected.Key,
-        //     LocalizedName: selected.LocalizedName,
-        //   })
-        // );
-        // dispatch(
-        //   fetchDataFF(selected.Key)
-        //   // selectItem({
-        //   //   Key: selected.Key,
-        //   //   LocalizedName: selected.LocalizedName,
-        //   // })
-        // );
+        selected?.Key && dispatch(selectItem(selected));
       }}
       renderInput={(params) => (
         <TextField

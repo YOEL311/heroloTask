@@ -1,9 +1,10 @@
-import { RootState } from "./types";
+import { RootState, ActionTypes } from "./types";
 
 
 import { createStore, applyMiddleware } from 'redux'
 import { persistStore, persistReducer } from "redux-persist";
-import ReduxThunk from 'redux-thunk';
+import ReduxThunk, { ThunkMiddleware } from "redux-thunk";
+
 
 import storage from "redux-persist/lib/storage";
 
@@ -25,7 +26,10 @@ const logger = (store: any) => (next: any) => (action: any) => {
 }
 
 const persistedReducer = persistReducer<RootState, any>(persistConfig, rootReducer as any);
-const store = createStore(persistedReducer, applyMiddleware(ReduxThunk, logger));
+const store = createStore(persistedReducer,
+  applyMiddleware(ReduxThunk, logger)
+  // applyMiddleware(ReduxThunk as ThunkMiddleware<RootState, ActionTypes>, logger)
+);
 let persistor = persistStore(store);
 
 export { store, persistor };

@@ -13,7 +13,7 @@ function addToFavorites(key: string) {
   });
 }
 
-function selectItem2(item: Location) {
+export function selectItem2(item: Location) {
   return action(Constants.SELECT_ITEM, {
     item
   });
@@ -34,16 +34,22 @@ export const fetchData = async (dispatch: Dispatch, key: string) => {
 
 export const selectItem = (item: Location) => {
   return async (dispatch: Dispatch, getstate: () => RootState) => {
-    // console.log("🚀 ~ file: actions.ts ~ line 55 ~ return ~ state", getstate())
     dispatch(action(Constants.SELECT_ITEM, { item }))
-    console.log("🚀 ~ file: actions.ts ~ line 55 ~ return ~ state", getstate().preferUser.itemSelected.Key)
+    dispatch(fetchSelectedData() as any)
+  }
+}
+
+export const fetchSelectedData = () => {
+  return async (dispatch: Dispatch, getstate: () => RootState) => {
     const key = getstate().preferUser.itemSelected.Key
-    key && fetchData(dispatch, key)
+    const res = await myFetch(
+      `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?apikey=${process.env.REACT_APP_ACCU_WEATHER_API_KEY}`
+    );
+    fetchDataSuccess(dispatch, res);
   }
 }
 
 function fetchDataSuccess(dispatch: Dispatch, data: any) {
-  console.log("🚀 ~ file: actions.ts ~ line 59 ~ fetchDataSuccess ~ data", data)
   return dispatch(
     action(Constants.FETCH_DATA_SUCCESS, {
       data
@@ -52,4 +58,4 @@ function fetchDataSuccess(dispatch: Dispatch, data: any) {
 }
 
 
-export { toggleTheme, addToFavorites, removeFromFavorites, fetchDataSuccess, selectItem2 };
+export { toggleTheme, addToFavorites, removeFromFavorites, fetchDataSuccess };
