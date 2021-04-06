@@ -6,7 +6,7 @@ const myFetch = async (url: string) => {
     const res = await response.json();
     return res;
   } catch (error) {
-  toast.error("error fetacch");
+  toast.error("error fetch");
   }
   return false;
 };
