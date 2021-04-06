@@ -23,7 +23,6 @@ import { useDispatch } from "react-redux";
 import { toggleTheme } from "../store/actions";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-declare module "react-router-dom";
 
 const drawerWidth = 240;
 
