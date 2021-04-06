@@ -15,7 +15,6 @@ import {
   addToFavorites,
   removeFromFavorites,
   selectItem,
-  fetchData2,
 } from "../store/actions";
 import { RootState } from "../store/types";
 

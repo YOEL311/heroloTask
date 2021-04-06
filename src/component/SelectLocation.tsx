@@ -4,7 +4,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch } from "react-redux";
-import { selectItem, fetchData2 } from "../store/actions";
+import { selectItem } from "../store/actions";
 import { Location } from "../store/types";
 import { myFetch } from "../common/fetchManager";
 
@@ -65,7 +65,7 @@ export default function SelectLocation() {
         // selected?.Key && dispatch(selectItemTest(selected));
         selected?.Key &&
           dispatch(
-            fetchData2({
+            selectItem({
               Key: selected.Key,
               LocalizedName: selected.LocalizedName,
             })
