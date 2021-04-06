@@ -7,14 +7,21 @@ import {
   CardContent,
   Typography,
 } from "@material-ui/core";
- import {RootState}from '../store/types'
+import { RootState } from "../store/types";
 import { myFetch } from "../common/fetchManager";
-import { getCityName}from '../common/helper'
+import { getCityName } from "../common/helper";
 
 const Favorites = () => {
-  const listFavorites = useSelector((state:RootState) => state.listFavorites);
-  const [listFavoritesInfo, setListFavoritesInfo] = React.useState<string[]>([]);
-  console.log("🚀 ~ file: Favorites.tsx ~ line 17 ~ Favorites ~ listFavoritesInfo", listFavoritesInfo)
+  const listFavorites = useSelector(
+    (state: RootState) => state.preferUser.listFavorites
+  );
+  const [listFavoritesInfo, setListFavoritesInfo] = React.useState<string[]>(
+    []
+  );
+  console.log(
+    "🚀 ~ file: Favorites.tsx ~ line 17 ~ Favorites ~ listFavoritesInfo",
+    listFavoritesInfo
+  );
 
   React.useEffect(() => {
     const fetchInfo = () => {
@@ -22,11 +29,14 @@ const Favorites = () => {
         const res = await myFetch(
           `https://dataservice.accuweather.com/currentconditions/v1/${el}?apikey=${process.env.REACT_APP_ACCU_WEATHER_API_KEY}`
         );
-        res && setListFavoritesInfo((prev : any ) => [...prev, res[0]]);
+        res && setListFavoritesInfo((prev: any) => [...prev, res[0]]);
       });
     };
     listFavorites[0] && fetchInfo();
-    console.log("🚀 ~ file: Favorites.tsx ~ line 38 ~ React.useEffect ~ listFavorites", listFavorites)
+    console.log(
+      "🚀 ~ file: Favorites.tsx ~ line 38 ~ React.useEffect ~ listFavorites",
+      listFavorites
+    );
   }, [listFavorites]);
 
   return (
@@ -35,7 +45,7 @@ const Favorites = () => {
         <Card style={{ marginTop: 50, padding: 40 }}>
           <Grid direction="row" container justify="space-evenly">
             {listFavoritesInfo[0] &&
-              listFavoritesInfo.map((favorite: any ) => {
+              listFavoritesInfo.map((favorite: any) => {
                 return (
                   <Card key={favorite.Link}>
                     <CardContent>

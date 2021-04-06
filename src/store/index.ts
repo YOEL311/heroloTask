@@ -7,11 +7,12 @@ import ReduxThunk from 'redux-thunk';
 
 import storage from "redux-persist/lib/storage";
 
-import { rootReducer } from "./reducers";
+import rootReducer from "./reducers";
 
 const persistConfig = {
   key: "weather",
   storage,
+  blacklist: ['data',]
 };
 
 const logger = (store: any) => (next: any) => (action: any) => {

@@ -28,8 +28,16 @@ import { myFetch } from "../common/fetchManager";
 const URL_ICON = process.env.PUBLIC_URL + "/icons/";
 
 const Weather = () => {
-  // const selected = useSelector((state: RootState) => state.itemSelected);
-  const selectedInfo = useSelector((state: RootState) => state.selectedInfo);
+  const selected = useSelector(
+    (state: RootState) => state.preferUser.itemSelected
+  );
+  console.log(
+    "🚀 ~ file: Weather.tsx ~ line 34 ~ Weather ~ selected",
+    selected
+  );
+  const selectedInfo = useSelector(
+    (state: RootState) => state.data.selectedInfo
+  );
   console.log(
     "🚀 ~ file: Weather.tsx ~ line 31 ~ Weather ~ selectedInfo",
     selectedInfo
@@ -63,10 +71,12 @@ const Weather = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const listFavorites = useSelector((state: RootState) => state.listFavorites);
+  const listFavorites = useSelector(
+    (state: RootState) => state.preferUser.listFavorites
+  );
 
   const isSelectedFavorite = listFavorites?.some(
-    (item) => item === selectedInfo?.Key
+    (item) => item === selected?.Key
   );
 
   return (
@@ -91,7 +101,7 @@ const Weather = () => {
                 >
                   <Grid>
                     <Typography align={"center"} variant="h6" color="primary">
-                      {selectedInfo?.LocalizedName}
+                      {selected?.LocalizedName}
                     </Typography>
 
                     <Typography align={"center"} variant="h6" color="primary">
@@ -103,8 +113,8 @@ const Weather = () => {
                   <IconButton
                     onClick={() => {
                       isSelectedFavorite
-                        ? dispatch(removeFromFavorites(selectedInfo.Key))
-                        : dispatch(addToFavorites(selectedInfo.Key));
+                        ? dispatch(removeFromFavorites(selected.Key))
+                        : dispatch(addToFavorites(selected.Key));
                     }}
                   >
                     <FavoriteIcon

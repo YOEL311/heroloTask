@@ -18,11 +18,18 @@ export interface Location {
     LocalizedName: string,
     isDefault?: boolean,
 }
-
 export interface RootState {
+    preferUser: PreferUserState
+    data: DataState
+}
+export interface PreferUserState {
     listFavorites: string[];
     them: PaletteType;
     itemSelected: Location
+}
+
+
+export interface DataState {
     selectedInfo?: any
 }
 
