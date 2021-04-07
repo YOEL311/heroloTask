@@ -18,10 +18,6 @@ const Favorites = () => {
   const [listFavoritesInfo, setListFavoritesInfo] = React.useState<string[]>(
     []
   );
-  console.log(
-    "🚀 ~ file: Favorites.tsx ~ line 17 ~ Favorites ~ listFavoritesInfo",
-    listFavoritesInfo
-  );
 
   React.useEffect(() => {
     const fetchInfo = () => {
@@ -33,10 +29,6 @@ const Favorites = () => {
       });
     };
     listFavorites[0] && fetchInfo();
-    console.log(
-      "🚀 ~ file: Favorites.tsx ~ line 38 ~ React.useEffect ~ listFavorites",
-      listFavorites
-    );
   }, [listFavorites]);
 
   return (

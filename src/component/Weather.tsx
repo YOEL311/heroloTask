@@ -14,12 +14,13 @@ import {
   addToFavorites,
   removeFromFavorites,
   fetchSelectedData,
+  selectItem,
 } from "../store/actions";
 import { RootState } from "../store/types";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { getDayString, getPosition } from "../common/helper";
 import SelectLocation from "./SelectLocation";
-// import { myFetch } from "../common/fetchManager";
+import { myFetch } from "../common/fetchManager";
 
 const URL_ICON = process.env.PUBLIC_URL + "/icons/";
 
@@ -30,39 +31,37 @@ const Weather = () => {
   const selectedInfo = useSelector(
     (state: RootState) => state.data.selectedInfo
   );
-
   const listFavorites = useSelector(
     (state: RootState) => state.preferUser.listFavorites
   );
-
   const isSelectedFavorite = listFavorites?.some(
     (item) => item === selected?.Key
   );
   const dispatch = useDispatch();
+
   React.useEffect(() => {
     dispatch(fetchSelectedData());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   React.useEffect(() => {
-    // const tryGetLoc = async () => {
-    //   if (selected.isDefault) {
-    //     try {
-    //       const position = await getPosition() as GeolocationPosition ;
-    //       const res = await myFetch(
-    //         `https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${process.env.REACT_APP_ACCU_WEATHER_API_KEY}&q=${position.coords.latitude},${position.coords.longitude}`
-    //       );
-    //       res?.Key &&
-    //         dispatch(
-    //           selectItem({ Key: res.Key, LocalizedName: res.LocalizedName })
-    //           // fetchData2(res.Key)
-    //         );
-    //     } catch (error) {
-    //       toast.error("can't get your location");
-    //     }
-    //   }
-    // };
-    // tryGetLoc();
+    const tryGetLoc = async () => {
+      if (selected.isDefault) {
+        try {
+          const position = (await getPosition()) as GeolocationPosition;
+          const res = await myFetch(
+            `https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${process.env.REACT_APP_ACCU_WEATHER_API_KEY}&q=${position.coords.latitude},${position.coords.longitude}`
+          );
+          res?.Key &&
+            dispatch(
+              selectItem({ Key: res.Key, LocalizedName: res.LocalizedName })
+            );
+        } catch (error) {
+          toast.error("can't get your location");
+        }
+      }
+    };
+    tryGetLoc();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

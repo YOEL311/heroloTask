@@ -4,7 +4,6 @@ import { ActionType } from 'typesafe-actions';
 import * as actions from './actions';
 import { PaletteType } from '@material-ui/core';
 
-
 export enum Constants {
     ADD_ITEM_TO_FAVORITES = 'ADD_ITEM_TO_FAVORITES',
     FETCH_DATA_SUCCESS = 'FETCH_DATA_SUCCESS',

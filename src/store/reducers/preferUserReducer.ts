@@ -14,7 +14,6 @@ const init: PreferUserState = {
 };
 
 export function preferUserReducer(state: PreferUserState = init, action: ActionTypes): PreferUserState {
-    console.log("🚀 ~ file: reducers.ts ~ line 17 ~ rootReducer ~ action", action)
     switch (action.type) {
         case Constants.SELECT_ITEM:
             return { ...state, itemSelected: action.payload.item };
